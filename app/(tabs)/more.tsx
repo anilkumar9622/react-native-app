@@ -1,112 +1,175 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { Collapsible } from '@/components/ui/collapsible';
-import { ExternalLink } from '@/components/external-link';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Fonts } from '@/constants/theme';
+import { View, Text, StyleSheet, ScrollView, Pressable, Linking } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Image } from "expo-image";
 
 export default function MoreScreen() {
+  const menuItems = [
+    { name: "Feedback", icon: "feedback" },
+    { name: "FAQ", icon: "help-outline" },
+    { name: "About GraTaste", icon: "info" },
+    { name: "Delivery Charges", icon: "local-shipping" },
+    { name: "Terms & Conditions", icon: "article" },
+    { name: "Privacy Policy", icon: "lock-outline" },
+  ];
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-          }}>
-          Explore
-        </ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image
-          source={require('@/assets/images/react-logo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center' }}
-        />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful{' '}
-          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
-            react-native-reanimated
-          </ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      {/* Menu List */}
+       <View style={styles.topSection}>
+              <Text style={styles.userName}>More</Text>
+              
+            </View>
+      
+      <View style={styles.menuList}>
+        {menuItems.map((item, index) => (
+          <Pressable key={index} style={styles.menuItem}>
+            <View style={styles.menuLeft}>
+              <MaterialIcons name={item.icon as any} size={24} color="#ef4444" />
+              <Text style={styles.menuText}>{item.name}</Text>
+            </View>
+            <MaterialIcons name="chevron-right" size={24} color="#6b7280" />
+          </Pressable>
+        ))}
+      </View>
+
+      {/* Contact Buttons */}
+      <View style={styles.contactContainer}>
+        <Pressable style={styles.contactButton} onPress={() => Linking.openURL("tel:+911234567890")}>
+          <MaterialIcons name="call" size={24} color="#fff" />
+          <Text style={styles.contactText}>Call Us</Text>
+        </Pressable>
+
+        <Pressable style={styles.contactButton} onPress={() => Linking.openURL("sms:+911234567890")}>
+          <MaterialIcons name="chat" size={24} color="#fff" />
+          <Text style={styles.contactText}>Chat with Us</Text>
+        </Pressable>
+      </View>
+
+      {/* Social Media */}
+      <View style={styles.socialContainer}>
+        <Text style={styles.sectionTitle}>Follow Us</Text>
+        <View style={styles.socialRow}>
+          <Image source={require("../../assets/icons/email.png")} style={styles.socialIcon} />
+          <Image source={require("../../assets/icons/instagram.png")} style={styles.socialIcon} />
+          <Image source={require("../../assets/icons/twitter.png")} style={styles.socialIcon} />
+          <Image source={require("../../assets/icons/linkedin.png")} style={styles.socialIcon} />
+        </View>
+      </View>
+
+      {/* App Info */}
+      <View style={styles.appInfo}>
+        <Text style={styles.versionText}>App Version 1.0.0</Text>
+        <Text style={styles.copyText}>© GraTaste Pvt. Ltd.</Text>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    flex: 1,
+    backgroundColor: "#f3f4f6",
+    //  paddingTop: 60
+
   },
-  titleContainer: {
-    flexDirection: 'row',
+ topSection: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingVertical: 20,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    paddingTop: 60
+  },
+  userName: {
+    fontSize: 20,
+    fontWeight: "700",
+    marginLeft: 10
+  },
+  helpText: {
+    fontSize: 14,
+    color: "#3b82f6",
+  },
+  menuList: {
+    marginTop: 16,
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    overflow: "hidden",
+    marginHorizontal: 16,
+  },
+  menuItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingVertical: 18,
+    borderBottomWidth: 1,
+    borderBottomColor: "#e5e7eb",
+  },
+  menuLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 16,
+  },
+  menuText: {
+    fontSize: 16,
+  },
+
+  contactContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 24,
+    paddingHorizontal: 16,
+  },
+  contactButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#ef4444",
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 12,
     gap: 8,
+  },
+  contactText: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "600",
+  },
+
+  socialContainer: {
+    marginTop: 32,
+    paddingHorizontal: 16,
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    marginBottom: 12,
+    marginLeft: 10
+    // textAlign: "center"
+  },
+  socialRow: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  socialIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 8,
+    tintColor: "black"
+  },
+
+  appInfo: {
+    marginTop: 32,
+    alignItems: "center",
+    marginBottom: 40,
+  },
+  versionText: {
+    fontSize: 12,
+    color: "#6b7280",
+  },
+  copyText: {
+    fontSize: 12,
+    color: "#6b7280",
+    marginTop: 4,
   },
 });

@@ -45,113 +45,34 @@
 import { ScrollView, View, Text, TextInput, Pressable, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
+import HomeHeader from "@/components/home/HomeHeader";
+import SearchBar from "@/components/home/SearchBar";
+import BannerCarousel from "@/components/home/BannerCarousel";
+import BrandList from "@/components/home/BrandList";
+import RestaurantList from "@/components/home/RestaurantList";
+import ItemCategroy from "@/components/home/ItemCategory";
+import FilterBar from "@/components/home/filterBar";
+// import ItemList from "@/components/home/FoodList";
+import FoodListHorizontal from "@/components/home/ItemList";
+import ItemList from "@/components/home/ItemList";
 
 export default function HomeScreen() {
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>     
       
-      {/* HEADER */}
-      <View style={styles.header}>
+      {/* <SearchBar /> */}
+      <View style={styles.header}> 
         <View style={styles.headerRow}>
-          <View>
-            <Text style={styles.deliverText}>Deliver to</Text>
-            <View style={styles.locationRow}>
-              <MaterialIcons name="location-on" size={18} color="#ef4444" />
-              <Text style={styles.locationText}>Sector 62, Noida</Text>
-            </View>
-          </View>
 
-          <Pressable style={styles.profileBtn}>
-            <MaterialIcons name="person" size={24} color="#111" />
-          </Pressable>
+        <HomeHeader />
+        <SearchBar />
         </View>
-
-        {/* SEARCH */}
-        <View style={styles.searchBox}>
-          <MaterialIcons name="search" size={22} color="#6b7280" />
-          <TextInput
-            placeholder="Search for food, restaurants"
-            placeholderTextColor="#6b7280"
-            style={styles.searchInput}
-          />
         </View>
-      </View>
-
-      {/* BANNERS */}
-      
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.bannerScroll}
-        contentContainerStyle={styles.bannerContainer}
-      >
-        {[1, 2, 3].map((_, i) => (
-          <Image
-            key={i}
-            source={{
-              uri: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092",
-            }}
-            style={styles.bannerImage}
-            contentFit="cover"
-          />
-        ))}
-      </ScrollView>
-
-      {/* BRANDS */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Popular Brands</Text>
-
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.brandContainer}
-        >
-          {["Burger", "Pizza", "Biryani", "Chinese"].map((brand, i) => (
-            <View key={i} style={styles.brandItem}>
-              <View style={styles.brandIcon}>
-                <MaterialIcons name="restaurant" size={28} color="#ef4444" />
-              </View>
-              <Text style={styles.brandText}>{brand}</Text>
-            </View>
-          ))}
-        </ScrollView>
-      </View>
-
-      {/* LISTINGS */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Restaurants Near You</Text>
-
-        {[1, 2, 3, 4].map((_, i) => (
-          <View key={i} style={styles.card}>
-            <Image
-              source={{
-                uri: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5",
-              }}
-              style={styles.cardImage}
-              contentFit="cover"
-            />
-
-            <View style={styles.cardBody}>
-              <View style={styles.cardHeader}>
-                <Text style={styles.cardTitle}>Food Corner</Text>
-                <View style={styles.ratingRow}>
-                  <MaterialIcons name="star" size={16} color="#facc15" />
-                  <Text style={styles.ratingText}>4.3</Text>
-                </View>
-              </View>
-
-              <Text style={styles.metaText}>
-                North Indian · Chinese · ₹200 for one
-              </Text>
-
-              <View style={styles.deliveryRow}>
-                <MaterialIcons name="delivery-dining" size={18} color="#16a34a" />
-                <Text style={styles.deliveryText}>Free Delivery</Text>
-              </View>
-            </View>
-          </View>
-        ))}
-      </View>
+      <BannerCarousel />
+      <ItemCategroy />
+      <BrandList />
+      <ItemList />
+      {/* <RestaurantList /> */}
     </ScrollView>
   );
 }
@@ -165,18 +86,19 @@ const styles = StyleSheet.create({
   /* Header */
   header: {
     backgroundColor: "#fff",
-    paddingHorizontal: 16,
-    paddingTop: 56,
+    // paddingHorizontal: 16,
+    // paddingTop: 56,
     paddingBottom: 16,
   },
   headerRow: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
   },
   deliverText: {
     fontSize: 12,
     color: "#6b7280",
+    textAlign: "right"
   },
   locationRow: {
     flexDirection: "row",
@@ -184,7 +106,7 @@ const styles = StyleSheet.create({
   },
   locationText: {
     marginLeft: 4,
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: "600",
   },
   profileBtn: {
