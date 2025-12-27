@@ -1,16 +1,15 @@
 import { useEffect } from "react";
 import { View, FlatList } from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../navigation/types";
+import { useRouter } from "expo-router";
+
 import { useItemsStore } from "@/hooks/store/useItemsStore";
 import Loader from "@/components/loader";
 import ErrorState from "@/components/errorState";
 import EmptyState from "@/components/emptyState";
 import ListItem from "@/components/listItems";
 
-type Props = NativeStackScreenProps<RootStackParamList, "List">;
-
-export default function ListScreen({ navigation }: Props) {
+export default function ListScreen() {
+  const router = useRouter();
   const { items, loading, error, loadItems } = useItemsStore();
 
   useEffect(() => {
@@ -30,7 +29,10 @@ export default function ListScreen({ navigation }: Props) {
           <ListItem
             item={item}
             onPress={() =>
-              navigation.navigate("Detail", { item })
+              router.push({
+                pathname: "/detail",
+                params: { id: item.id },
+              })
             }
           />
         )}
