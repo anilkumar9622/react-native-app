@@ -1,48 +1,129 @@
 import { View, Text, ScrollView, StyleSheet, Pressable } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useItemsStore } from "@/hooks/store/useItemsStore";
 
 const FILTERS = [
-  { label: "Sort By", icon: "swap-vert" },
-  { label: "Cuisines", icon: "restaurant-menu" },
-  { label: "Free Delivery", icon: "delivery-dining" },
-  { label: "Offers", icon: "local-offer" },
-  { label: "Under 30 min", icon: "timer" },
-  { label: "Rating 4+", icon: "star" },
+  {
+    label: "A–Z",
+    key: "sortBy",
+    value: "name",
+    order: "asc",
+    icon: "swap-vert",
+  },
+  {
+    label: "Pizza",
+    key: "tags",
+    value: "Pizza",
+    icon: "local-pizza",
+  },
+  {
+    label: "Italian",
+    key: "tags",
+    value: "Italian",
+    icon: "restaurant-menu",
+  },
+  {
+    label: "Vegetarian",
+    key: "tags",
+    value: "Vegetarian",
+    icon: "grass",
+  },
+  {
+    label: "Stir-fry",
+    key: "tags",
+    value: "Stir-fry",
+    icon: "emoji-food-beverage",
+  },
+  {
+    label: "Asian",
+    key: "tags",
+    value: "Asian",
+    icon: "public",
+  },
+  {
+    label: "Cookies",
+    key: "tags",
+    value: "Cookies",
+    icon: "cookie",
+  },
+  {
+    label: "Dessert",
+    key: "tags",
+    value: "Dessert",
+    icon: "icecream",
+  },
+  {
+    label: "Baking",
+    key: "tags",
+    value: "Baking",
+    icon: "cake",
+  },
+  {
+    label: "Pasta",
+    key: "tags",
+    value: "Pasta",
+    icon: "ramen-dining",
+  },
 ];
 
+
+
 export default function FilterBar() {
+  const { setFilters, loadItems, filters } = useItemsStore();
+
   return (
     <View style={styles.wrapper}>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.container}
+    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+  {FILTERS.map((item, index) => {
+    // Correct active check
+    const active =
+      item.key === "tags"
+        ? filters.tags === item.value
+        : filters[item.key] === item.value;
+
+    return (
+      <Pressable
+        key={index}
+        style={[styles.filter, active && styles.activeFilter]}
+        onPress={() => {
+          const newFilter: Record<string, any> = {};
+
+          if (item.key === "tags") {
+            newFilter.tags = active ? undefined : item.value; // set 'tags' key
+          } else {
+            newFilter[item.key] = active ? undefined : item.value;
+          }
+
+          // Include order if present
+          if (item.order) newFilter.order = item.order;
+
+          setFilters(newFilter);
+          loadItems(true);
+        }}
       >
-        {FILTERS.map((item, index) => (
-          <Pressable
-            key={index}
-            style={({ pressed }) => [
-              styles.filter,
-              pressed && styles.pressed,
-            ]}
-            onPress={() => {
-              console.log("Filter:", item.label);
-            }}
-          >
-            <MaterialIcons
-              name={item.icon as any}
-              size={16}
-              color="#374151"
-            />
-            <Text style={styles.text}>{item.label}</Text>
-          </Pressable>
-        ))}
-      </ScrollView>
+        <MaterialIcons
+          name={item.icon as any}
+          size={16}
+          color={active ? "#fff" : "#374151"}
+        />
+        <Text style={[styles.text, active && { color: "#fff" }]}>
+          {item.label}
+        </Text>
+      </Pressable>
+    );
+  })}
+</ScrollView>
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  activeFilter: {
+    backgroundColor: "#16a34a",
+    borderColor: "#16a34a",
+  },
+
   wrapper: {
     // backgroundColor: "#fff",
     paddingBottom: 12,

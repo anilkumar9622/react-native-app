@@ -4,7 +4,7 @@ import { Image } from "expo-image";
 const BRANDS = [
   {
     name: "McDonald's",
-    image: "https://upload.wikimedia.org/wikipedia/commons/5/5e/McDonald%27s_logo.svg",
+    image: "https://cdn-icons-png.flaticon.com/512/732/732217.png",
   },
   {
     name: "Domino's",
@@ -20,19 +20,20 @@ const BRANDS = [
   },
   {
     name: "Pizza Hut",
-    image: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Pizza_Hut_logo.svg",
+    image: "https://1000logos.net/wp-content/uploads/2017/05/Pizza-Hut-Logo.png",
   },
   {
     name: "Burger King",
-    image: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Burger_King_2020.svg",
+    image: "https://1000logos.net/wp-content/uploads/2017/03/Burger-King-logo.png",
   },
   {
     name: "Starbucks",
-    image: "https://upload.wikimedia.org/wikipedia/sco/d/d3/Starbucks_Coffee_Logo.svg",
+    image: "https://1000logos.net/wp-content/uploads/2017/08/Starbucks-logo.png",
   },
   {
     name: "Haldiram's",
-    image: "https://upload.wikimedia.org/wikipedia/en/7/72/Haldiram%27s_Logo.svg",
+    image:
+      "https://upload.wikimedia.org/wikipedia/en/thumb/7/72/Haldiram%27s_Logo.svg/512px-Haldiram%27s_Logo.svg.png",
   },
 ];
 

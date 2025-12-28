@@ -14,7 +14,8 @@ const MAPPING = {
   'chevron.right': 'chevron-right',
   'person.fill': 'person',
   'menubar.dock.rectangle': 'menu',
-  'basket.fill': 'shopping-basket'
+  'basket.fill': 'shopping-basket',
+  "fork.knife": "restaurant",
 } as IconMapping;
 
 

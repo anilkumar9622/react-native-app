@@ -1,7 +1,7 @@
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import { View, Text, ScrollView, StyleSheet, Pressable } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
-
+import { useRouter } from "expo-router";
 const FOOD_LIST = [
   {
     id: 1,
@@ -42,12 +42,23 @@ const FOOD_LIST = [
 ];
 
 export default function FoodList() {
+  const router = useRouter();
   return (
     <View style={styles.wrapper}>
       <Text style={styles.title}>Recommended For You</Text>
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {FOOD_LIST.map((item) => (
+            <Pressable
+          key={item.id}
+          style={styles.card}
+          onPress={() =>
+            router.push({
+              pathname: "/screens/foodItem/[id]",
+              params: { id: String(item.id) },
+            })
+          }
+        >
           <View key={item.id} style={styles.card}>
             {/* IMAGE */}
             <Image
@@ -96,7 +107,9 @@ export default function FoodList() {
               )}
             </View>
           </View>
+          </Pressable>
         ))}
+
       </ScrollView>
     </View>
   );

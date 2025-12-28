@@ -1,15 +1,16 @@
+// import FoodSkeleton from "@/components/common/FoodSkeleton";
+import FoodSkeleton from "@/components/common/foodskeleton";
+import EmptyState from "@/components/emptyState";
+import ErrorState from "@/components/errorState";
+import FilterBar from "@/components/home/filterBar";
 import { useItemsStore } from "@/hooks/store/useItemsStore";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import { ActivityIndicator, FlatList, Pressable, StyleSheet, Text, View } from "react-native";
-import FoodSkeleton from "../common/foodskeleton";
-import EmptyState from "../emptyState";
-import ErrorState from "../errorState";
-import FilterBar from "./filterBar";
 
-export default function ItemList() {
+export default function Food() {
     const router = useRouter();
     const {
         items,
@@ -21,17 +22,27 @@ export default function ItemList() {
     } = useItemsStore();
 
     useEffect(() => {
-        loadItems(true); // initial load
+        loadItems(true);
     }, []);
 
     if (loading) {
         return (
             <FlatList
                 data={Array.from({ length: 8 })}
-                keyExtractor={(_, i) => `ske_${i.toString() + "1"}`}
+                keyExtractor={(_, i) => i.toString()}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={styles.listContent}
-
+                ListHeaderComponent={
+                    <>
+                        <View style={styles.topSection}>
+                            <Text style={styles.userName}>Food Recipe</Text>
+                        </View>
+                        <View style={styles.filterWrapper}>
+                            <FilterBar />
+                        </View>
+                        <Text style={styles.title}>Recommended For You</Text>
+                    </>
+                }
                 renderItem={() => <FoodSkeleton count={1} />}
             />
         );
@@ -45,12 +56,26 @@ export default function ItemList() {
             keyExtractor={(item) => item.id.toString()}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.listContent}
+
+            /* 🔹 HEADER (replaces ScrollView content) */
             ListHeaderComponent={
-                <View>
-                    <FilterBar />
+                <>
+                    {/* HEADER FULL WIDTH */}
+                    <View style={styles.topSection}>
+                        <Text style={styles.userName}>Food Recipe</Text>
+                    </View>
+
+                    {/* FILTER BAR FULL WIDTH */}
+                    <View style={styles.filterWrapper}>
+                        <FilterBar />
+                    </View>
+
+                    {/* Title with padding */}
                     <Text style={styles.title}>Recommended For You</Text>
-                </View>
+                </>
+
             }
+
             renderItem={({ item }) => (
                 <Pressable
                     style={styles.card}
@@ -89,17 +114,8 @@ export default function ItemList() {
                     </View>
                 </Pressable>
             )}
-            
-            onEndReached={() => {
-                if (!loading && !!loadingMore && hasMore) {
-                    loadItems();
-                }
-            }}
-            onEndReachedThreshold={0.7}
-            initialNumToRender={10}
-            maxToRenderPerBatch={10}
-            windowSize={5}
-            
+            onEndReached={() => loadItems()}
+            onEndReachedThreshold={0.5}
             ListFooterComponent={
                 loadingMore ? (
                     <ActivityIndicator style={{ marginVertical: 16 }} />
@@ -111,12 +127,24 @@ export default function ItemList() {
 
 
 const styles = StyleSheet.create({
-    listContent: {
-        paddingHorizontal: 16,
-        paddingTop: 16,
-        paddingBottom: 24,
-        backgroundColor: "#f3f4f6",
+    loaderContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
     },
+    container: {
+        // flex: 1,
+        backgroundColor: "#f3f4f6",
+        //  paddingTop: 60
+
+    },
+   
+    userName: {
+        fontSize: 20,
+        fontWeight: "700",
+        marginLeft: 30
+    },
+   
 
     wrapper: {
         paddingHorizontal: 16,
@@ -222,4 +250,27 @@ const styles = StyleSheet.create({
         marginLeft: 4,
         fontWeight: "600",
     },
+    topSection: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingVertical: 20,
+        backgroundColor: "#fff",
+        paddingTop: 60,
+        marginHorizontal: -20,
+        marginBottom: 10,
+        width: "110%", // full width
+    },
+
+    filterWrapper: {
+        width: "100%", // FilterBar takes full width
+    },
+
+    listContent: {
+        paddingHorizontal: 16, // only FlatList items
+        paddingTop: 16,
+        paddingBottom: 24,
+        backgroundColor: "#f3f4f6",
+    },
+
 });

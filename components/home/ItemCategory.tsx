@@ -37,11 +37,11 @@ const CATEGORIES = [
     image:
       "https://images.unsplash.com/photo-1512621776951-a57141f2eefd",
   },
-  {
-    title: "Italian",
-    image:
-      "https://images.unsplash.com/photo-1604908554269-5e4b2c8dfb9d",
-  },
+//   {
+//     title: "Italian",
+//     image:
+//       "https://images.unsplash.com/photo-1604908554269-5e4b2c8dfb9d",
+//   },
   {
     title: "Beverages",
     image:

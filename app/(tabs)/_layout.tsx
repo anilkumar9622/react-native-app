@@ -23,9 +23,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="orders"
+        name="cart"
         options={{
-          title: 'Orders',
+          title: 'Cart',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="basket.fill" color={color} />,
         }}
       />
@@ -36,6 +36,13 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
         }}
       />
+       <Tabs.Screen
+        name="food"
+        options={{
+          title: 'Food',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="fork.knife" color={color} />,
+        }}
+      />
       <Tabs.Screen
         name="more"
         options={{
@@ -43,6 +50,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="menubar.dock.rectangle" color={color} />,
         }}
       />
+
     </Tabs>
   );
 }

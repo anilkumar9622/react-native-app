@@ -1,18 +1,19 @@
 /* For Production Environment */
-const BASE_URL = '';
+const BASE_URL = 'https://dummyjson.com';
 const WEBSITE_NAME = '';
 
 const DEFAULT_PAGE_SIZE = 100;
 
 const API_ENDPOINTS = {
-    login: '/user/login',
-    register: '/auth/signUp',
-    forgotPassword: '/auth/password/forgot/',
-    logout: '/auth/logout',
-    getProfile: '/profile/get',
-    updateProfile: 'profile/merchant',
+    login: '',
+    register: '',
+    forgotPassword: '',
+    logout: '',
+    getProfile: '',
+    updateProfile: '',
     tokenRenew: "",
-    storeDetails: ""
+
+    recipes: "/recipes"
 };
 
 const LS_KEYS = {

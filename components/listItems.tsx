@@ -1,8 +1,8 @@
 import { TouchableOpacity, Text, View } from "react-native";
-import { Item } from "../types/item";
+import { FoodItem } from "../types/item";
 
 interface Props {
-  item: Item;
+  item: FoodItem[];
   onPress: () => void;
 }
 
@@ -17,13 +17,13 @@ export default function ListItem({ item, onPress }: Props) {
           className="text-base font-semibold text-gray-900"
           numberOfLines={1}
         >
-          {item.title}
+          {/* {item.title} */}
         </Text>
         <Text
           className="text-sm text-gray-500 mt-1"
           numberOfLines={1}
         >
-          {item.body}
+          {/* {item.body} */}
         </Text>
       </View>
     </TouchableOpacity>

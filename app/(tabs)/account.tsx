@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { ThemeToggle } from "@/components/common/ThemeToggle";
 
 export default function AccountScreen() {
   const menuItems = [
@@ -13,15 +14,13 @@ export default function AccountScreen() {
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      {/* Top User Section */}
       <View style={styles.topSection}>
-        <Text style={styles.userName}>John Doe</Text>
+        <Text style={styles.userName}>Anil Kumar</Text>
         <Pressable>
           <Text style={styles.helpText}>Help</Text>
         </Pressable>
       </View>
 
-      {/* Cards: Vouchers & Orders */}
       <View style={styles.cardsContainer}>
         <View style={styles.card}>
           <MaterialIcons name="local-offer" size={28} color="#ef4444" />
@@ -33,7 +32,6 @@ export default function AccountScreen() {
         </View>
       </View>
 
-      {/* Menu List */}
       <View style={styles.menuList}>
         {menuItems.map((item, index) => (
           <Pressable key={index} style={styles.menuItem}>
@@ -53,7 +51,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f3f4f6",
-    // paddingVertical: 30
   },
   topSection: {
     flexDirection: "row",
